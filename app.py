@@ -1,12 +1,13 @@
 import time
+import os
 from flask import Flask
 from flask import jsonify
 from flask import request
+import subprocess as sp
 
-
-print (host)
 app = Flask(__name__)
 
+hostName = sp.getoutput("hostname")
 
 @app.route('/healthz')
 def healthx():
@@ -19,7 +20,8 @@ def ip():
 
 @app.route("/")
 def hello():
-  return "<h1><center>Flask App v1.0</center><h1>" + str(host)
+  ip_addr = request.remote_addr
+  return str(hostName) + " " + ip_addr
 
 if __name__ == "__main__":
 
